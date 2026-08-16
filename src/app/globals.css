@@ -1,0 +1,415 @@
+@import "tailwindcss";
+@import "./base.css";
+
+/* ==========================================================================
+   Warm Microphone — «Голосовой тест на притяжение»
+   ========================================================================== */
+
+:root {
+  --bg-primary: #0a0806;
+  --bg-card: #161008;
+  --accent: #f97316;
+  --accent-amber: #fcd34d;
+  --accent-contrast: #140c04;
+  --accent-safe: #34d399;
+  --text-primary: #fff8f0;
+  --text-secondary: #d4a574;
+  --border: #3a2610;
+  --font-display: var(--font-raleway), system-ui, sans-serif;
+  --font-body: var(--font-source), system-ui, sans-serif;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 85% 45% at 50% 0%, rgba(249, 115, 22, 0.18), transparent 68%),
+    radial-gradient(ellipse 60% 40% at 85% 90%, rgba(252, 211, 77, 0.07), transparent 70%),
+    var(--bg-primary);
+  background-attachment: fixed;
+}
+
+.hero h1 {
+  max-width: 17ch;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.hero-mark {
+  background: rgba(249, 115, 22, 0.1);
+}
+
+.section-title {
+  font-weight: 800;
+}
+
+/* --- Живая звуковая волна в шапке --- */
+
+.wave-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 64px;
+  margin: 26px 0 6px;
+}
+
+.wave-strip i {
+  display: block;
+  width: 4px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent-amber), var(--accent));
+  animation: pulse 1.35s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    height: 12px;
+    opacity: 0.55;
+  }
+  50% {
+    height: 46px;
+    opacity: 1;
+  }
+}
+
+/* --- Квиз --- */
+
+.quiz-progress {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 26px;
+}
+
+.quiz-progress span {
+  flex: 1;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--border);
+  transition: background 0.3s ease;
+}
+
+.quiz-progress span[data-done="true"] {
+  background: linear-gradient(90deg, var(--accent-amber), var(--accent));
+}
+
+.quiz-step {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 10px;
+}
+
+.quiz-question {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 3.4vw, 26px);
+  font-weight: 700;
+  line-height: 1.32;
+  margin: 0 0 24px;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 17px 19px;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+}
+
+.quiz-option:hover {
+  border-color: var(--accent);
+  transform: translateX(4px);
+  background: rgba(249, 115, 22, 0.08);
+}
+
+.quiz-option-key {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background 0.18s ease;
+}
+
+.quiz-option:hover .quiz-option-key {
+  background: var(--accent);
+}
+
+.quiz-back {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.quiz-back:hover {
+  color: var(--accent);
+}
+
+/* --- Результат: шкала притяжения --- */
+
+.score-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 38px 24px 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.score-big {
+  font-family: var(--font-display);
+  font-size: clamp(62px, 14vw, 104px);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.score-of {
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 6px 0 16px;
+}
+
+.score-band {
+  font-family: var(--font-display);
+  font-size: clamp(21px, 4vw, 28px);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 20px;
+  text-align: center;
+}
+
+.score-track {
+  width: 100%;
+  max-width: 440px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+}
+
+.score-track span {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #b45309, var(--accent), var(--accent-amber));
+}
+
+.score-legend {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 440px;
+  margin-top: 9px;
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.trait-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.trait-row:last-child {
+  border-bottom: none;
+}
+
+.trait-row strong {
+  font-family: var(--font-display);
+  font-size: 15.5px;
+  font-weight: 700;
+  flex: none;
+  min-width: 200px;
+}
+
+.trait-row span {
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   МЕХАНИКА ЦЕНЫ: три амплитуды звуковой волны
+   ========================================================================== */
+
+.amps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(268px, 1fr));
+  gap: 18px;
+  margin-top: 36px;
+}
+
+.amp {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 24px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.amp:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.amp[data-featured="true"] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.28), 0 24px 60px -30px rgba(249, 115, 22, 0.7);
+}
+
+.amp-badge {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 14px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-contrast);
+  background: var(--accent);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Мини-волна: высота столбиков растёт от тарифа к тарифу */
+.amp-wave {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 46px;
+  margin-bottom: 18px;
+}
+
+.amp-wave i {
+  display: block;
+  width: 4px;
+  border-radius: 999px;
+  background: var(--accent);
+  opacity: 0.85;
+}
+
+.amp h3 {
+  font-size: 19px;
+  font-weight: 800;
+  margin: 0 0 5px;
+}
+
+.amp-tagline {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  margin: 0 0 16px;
+  min-height: 38px;
+}
+
+.amp-price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.amp-price .now {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.amp-price .was {
+  font-size: 15px;
+  color: var(--text-secondary);
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.amp-price .off {
+  margin-left: auto;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--accent-amber);
+}
+
+.amp-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.amp-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  margin-bottom: 9px;
+}
+
+.amp-features svg {
+  flex: none;
+  margin-top: 3px;
+  color: var(--accent);
+}
+
+.amp-cta {
+  margin-top: auto;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 14px 20px;
+  font-family: var(--font-display);
+  font-size: 14.5px;
+  font-weight: 700;
+  border-radius: 10px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.amp[data-featured="true"] .amp-cta,
+.amp:hover .amp-cta {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
